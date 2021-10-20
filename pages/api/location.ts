@@ -8,6 +8,7 @@ const getAllLocationsQuery = `
         pages
       }
       results {
+        id
         name
         residents {
           id
