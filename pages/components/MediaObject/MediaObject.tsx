@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import classnames from 'classnames';
+import Image from 'next/image';
 
-type MediaObjectProps = {
+export type MediaObjectProps = {
   body?: ReactNode;
   className?: string;
   image: string;
@@ -18,14 +19,8 @@ const MediaObject = ({
   ...props
 }: MediaObjectProps) => (
   <div className={classnames('flex items-center', parentClassName)} {...props}>
-    <img
-      className={classnames({
-        'w-24 mr-8': !Boolean(imageClassName),
-        [imageClassName]: Boolean(imageClassName),
-      })}
-      src={image}
-    />
-    <div>
+    <Image height="24" src={image} width="24" />
+    <div className="ml-2">
       {title && <p className="text-lg">{title}</p>}
       {body}
     </div>

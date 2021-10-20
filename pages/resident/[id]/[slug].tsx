@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FormEventHandler, useEffect, useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 import { Comment } from '../../api/comments';
 
@@ -92,7 +92,9 @@ const ResidentPage = () => {
       {!isLoading && (
         <>
           <p className="mb-4">
-            <span onClick={() => router.back()}>&laquo; Back</span>
+            <span className="cursor-pointer" onClick={() => router.back()}>
+              &laquo; Back
+            </span>
           </p>
           <div className="md:float-right">
             <Image
