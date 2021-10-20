@@ -1,4 +1,5 @@
 import { EXPLORER_API } from './constants';
+import { Location } from './location';
 
 const getResidentByIdQuery = `
   query GetCharacterById($residentId: ID!) {
@@ -20,7 +21,7 @@ const getResidentByIdQuery = `
   }
 `;
 
-export const getResidentById = (id: number) =>
+export const getResidentById = (id: number): Promise<ResidentResponse> =>
   fetch(EXPLORER_API, {
     method: 'POST',
     headers: {
@@ -33,3 +34,18 @@ export const getResidentById = (id: number) =>
   })
     .then((res) => res.json())
     .then((res) => res.data);
+
+export type ResidentResponse = {
+  character: Resident;
+};
+
+export type Resident = {
+  id: string;
+  gender: string;
+  image: string;
+  name: string;
+  location: Location;
+  origin: Location;
+  species: string;
+  status: string;
+};
