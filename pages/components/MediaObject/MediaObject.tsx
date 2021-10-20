@@ -3,6 +3,7 @@ import classnames from 'classnames';
 
 type MediaObjectProps = {
   body?: ReactNode;
+  className?: string;
   image: string;
   imageClassName: string;
   title?: string;
@@ -10,12 +11,13 @@ type MediaObjectProps = {
 
 const MediaObject = ({
   body,
+  className: parentClassName,
   image,
   imageClassName,
   title,
   ...props
 }: MediaObjectProps) => (
-  <div className="flex items-center" {...props}>
+  <div className={classnames('flex items-center', parentClassName)} {...props}>
     <img
       className={classnames({
         'w-24 mr-8': !Boolean(imageClassName),

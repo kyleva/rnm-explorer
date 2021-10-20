@@ -1,14 +1,14 @@
 import { COMMENTS_API } from './constants';
 
-export const createPost = ({
+export const createComment = ({
   body,
   title,
-  residentId: userId,
+  userId,
 }: {
   body: string;
   title: string;
-  residentId: number;
-}) =>
+  userId: number;
+}): Promise<CommentsResponse> =>
   fetch(`${COMMENTS_API}`, {
     method: 'POST',
     headers: {
@@ -19,14 +19,24 @@ export const createPost = ({
       title,
       userId,
     }),
-  });
+  }).then((res) => res.json());
 
-export const getCommentsByResidentId = (id: number) =>
+export const getCommentsByResidentId = (id: string) =>
   fetch(`${COMMENTS_API}?userId=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-    .then((res) => res.json())
-    .then((res) => res.data);
+  }).then((res) => res.json());
+
+export const isCommentValid = (comment: Comment) =>
+  Object.values(comment).filter(Boolean).length === 3;
+
+type CommentsResponse = Comment[];
+
+export type Comment = {
+  id?: number;
+  body: string;
+  title: string;
+  userId: number;
+};

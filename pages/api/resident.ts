@@ -21,7 +21,7 @@ const getResidentByIdQuery = `
   }
 `;
 
-export const getResidentById = (id: number): Promise<ResidentResponse> =>
+export const getResidentById = (id: string): Promise<ResidentResponse> =>
   fetch(EXPLORER_API, {
     method: 'POST',
     headers: {

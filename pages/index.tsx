@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     data.length > 0 && (
-      <div className="container mx-auto mt-4">
+      <div className="container px-4 mx-auto mt-4">
         {data.map((location) => (
           <div key={`location-${location.id}`} className="mt-4">
             <div className="flow-root pb-2 mb-2 border-b">
@@ -52,6 +52,7 @@ const Home = () => {
                         <span className="capitalize">{resident.status}</span>
                       </p>
                     }
+                    className="cursor-pointer"
                     image={resident.image}
                     imageClassName="w-6 mr-2"
                   />
