@@ -108,7 +108,7 @@ const ResidentPage = () => {
       <>
         <p className="mb-4">
           <span className="cursor-pointer" onClick={() => router.back()}>
-            &laquo; Back
+            <a>&laquo; Back</a>
           </span>
         </p>
 
