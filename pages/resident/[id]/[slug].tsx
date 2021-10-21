@@ -1,15 +1,21 @@
-import Image from 'next/image';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { Comment } from '../../api/comments';
-
-import { getResidentById, Resident } from '../../api/resident';
+// Components
+import Loader from '../../components/Loading';
+import ResidentComments from '../../components/ResidentComments';
+import ResidentCommentForm from '../../components/ResidentCommentForm';
+import ResidentDetails from '../../components/ResidentDetails';
+// Helpers
 import {
   createComment,
   getCommentsByResidentId,
-  isCommentValid,
-} from '../../api/comments';
+} from '../../api/comments/comments';
+import { getResidentById } from '../../api/resident/resident';
+import { isCommentValid } from '../../api/comments/helpers';
+// Types
+import { Comment } from '../../api/comments/types';
+import { Resident } from '../../api/resident/types';
 
 const ResidentPage = () => {
   const router = useRouter();
@@ -24,8 +30,8 @@ const ResidentPage = () => {
   const id = router.query.id as string;
 
   useEffect(() => {
-    // Don't execute side effect on first render
-    if (!id) return;
+    // Don't execute side effect on first render (url prop not available)
+    if (!Boolean(id)) return;
 
     getResidentById(id).then((response) => {
       setResident(response.character);
@@ -42,6 +48,16 @@ const ResidentPage = () => {
     );
   }, [id]);
 
+  useEffect(() => {
+    if (!Boolean(resident.name)) return;
+    document.title = `${resident.name} | Rick and Morty Explorer`;
+  }, [resident]);
+
+  /**
+   * Would prefer to manage this side effect somewhere else and not bloat the
+   * component but given the way this is set up at the moment it's easier
+   * to leave it in here.
+   */
   const handleAddComment: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
@@ -85,103 +101,35 @@ const ResidentPage = () => {
     });
   };
 
+  if (isLoading) return <Loader />;
+
   return (
     <div className="container px-4 mx-auto my-4">
-      {isLoading && <div>Loading...</div>}
+      <>
+        <p className="mb-4">
+          <span className="cursor-pointer" onClick={() => router.back()}>
+            &laquo; Back
+          </span>
+        </p>
 
-      {!isLoading && (
-        <>
+        <ResidentDetails {...resident} />
+
+        <div className="flow-root clear-both pt-6 mt-8 border-t">
+          {comments.length > 0 && <ResidentComments comments={comments} />}
+
           <p className="mb-4">
-            <span className="cursor-pointer" onClick={() => router.back()}>
-              &laquo; Back
-            </span>
-          </p>
-          <div className="md:float-right">
-            <Image
-              src={resident.image}
-              className="max-w-full"
-              height="200"
-              width="200"
-            />
-          </div>
-
-          <h1 className="mb-6 text-lg">{resident.name}</h1>
-
-          <p className="mb-2">
-            <strong>Status:</strong> {resident.status}
+            <strong>What're your thoughts on {resident.name}?</strong>
           </p>
 
-          <p className="mb-2">
-            <strong>Species:</strong> {resident.species}
-          </p>
-
-          <p className="mb-2">
-            <strong>Gender:</strong> {resident.gender}
-          </p>
-
-          <p className="mb-2">
-            <strong>Last known location:</strong> {resident.location.name}
-          </p>
-
-          <p className="mb-2">
-            <strong>Birth location:</strong> {resident.origin.name}
-          </p>
-
-          <div className="flow-root clear-both pt-6 mt-8 border-t">
-            {comments.length > 0 && (
-              <div className="mb-4">
-                {comments.map((comment) => (
-                  <div
-                    className="pb-4 mb-4 border-b"
-                    key={`comment-${comment.id}`}
-                  >
-                    <p>
-                      <strong>{comment.title}</strong>
-                    </p>
-                    <p>{comment.body}</p>
-                  </div>
-                ))}{' '}
-              </div>
-            )}
-
-            <p className="mb-4">
-              <strong>What're your thoughts on {resident.name}?</strong>
-            </p>
-            <form className="block" onSubmit={handleAddComment}>
-              <label htmlFor="comment-title mb-4">
-                <span className="block">Title</span>
-                <input
-                  id="comment-title"
-                  className="block w-full p-3 border rounded"
-                  name="title"
-                  onChange={(event) => setNewCommentTitle(event.target.value)}
-                  type="text"
-                  value={newCommentTitle}
-                />
-              </label>
-
-              <label className="block mt-4" htmlFor="comment-body">
-                <span className="block">Body</span>
-                <input
-                  id="comment-body"
-                  className="block w-full p-3 border rounded"
-                  name="body"
-                  onChange={(event) => setNewCommentBody(event.target.value)}
-                  type="text"
-                  value={newCommentBody}
-                />
-              </label>
-
-              <button
-                className="block p-3 mt-4 border rounded cursor-pointer"
-                type="submit"
-              >
-                Add comment
-              </button>
-            </form>
-          </div>
-        </>
-      )}
+          <ResidentCommentForm
+            onSubmit={handleAddComment}
+            setNewCommentBody={setNewCommentBody}
+            setNewCommentTitle={setNewCommentTitle}
+            newCommentBody={newCommentBody}
+            newCommentTitle={newCommentTitle}
+          />
+        </div>
+      </>
     </div>
   );
 };

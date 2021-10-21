@@ -1,5 +1,7 @@
-import { EXPLORER_API } from './constants';
-import { Resident } from './resident';
+// Constants
+import { EXPLORER_API } from '../constants';
+// Types
+import { LocationsResponse } from './types';
 
 const getAllLocationsQuery = `
   query GetAllLocations($page: Int) {
@@ -35,19 +37,3 @@ export const getLocations = (page: number = 1): Promise<LocationsResponse> =>
   })
     .then((res) => res.json())
     .then((res) => res.data);
-
-export type Location = {
-  id: number;
-  name: string;
-  residents: Resident[];
-  type: string;
-};
-
-export type LocationsResponse = {
-  locations: {
-    info: {
-      pages: number;
-    };
-    results: Location[];
-  };
-};

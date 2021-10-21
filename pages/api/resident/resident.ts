@@ -1,5 +1,7 @@
-import { EXPLORER_API } from './constants';
-import { Location } from './location';
+// Constants
+import { EXPLORER_API } from '../constants';
+// Types
+import { ResidentResponse } from './types';
 
 const getResidentByIdQuery = `
   query GetCharacterById($residentId: ID!) {
@@ -34,18 +36,3 @@ export const getResidentById = (id: string): Promise<ResidentResponse> =>
   })
     .then((res) => res.json())
     .then((res) => res.data);
-
-export type ResidentResponse = {
-  character: Resident;
-};
-
-export type Resident = {
-  id: string;
-  gender: string;
-  image: string;
-  name: string;
-  location: Location;
-  origin: Location;
-  species: string;
-  status: string;
-};
