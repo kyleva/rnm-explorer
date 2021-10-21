@@ -2,7 +2,7 @@ import { FormEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Components
-import Loader from '../../components/Loading';
+import Loader from '../../components/Loader';
 import ResidentComments from '../../components/ResidentComments';
 import ResidentCommentForm from '../../components/ResidentCommentForm';
 import ResidentDetails from '../../components/ResidentDetails';

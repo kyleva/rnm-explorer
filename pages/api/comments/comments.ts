@@ -1,5 +1,7 @@
 // Constants
 import { COMMENTS_API } from '../constants';
+// Types
+import { CommentsResponse } from './types';
 
 export const createComment = ({
   body,

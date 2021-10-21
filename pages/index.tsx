@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // Components
-import Loading from './components/Loading';
+import Loader from './components/Loader';
 import Location from './components/Location';
 import Pagination from './components/Pagination';
 // Helpers
@@ -29,7 +29,7 @@ const Home = () => {
     document.title = 'Rick and Morty Explorer';
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loader />;
 
   return (
     data.length > 0 && (
@@ -37,6 +37,7 @@ const Home = () => {
         {data.map((location) => (
           <Location {...location} />
         ))}
+
         <Pagination
           currentPage={page}
           pageCount={pageCount}
