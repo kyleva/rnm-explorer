@@ -13,17 +13,17 @@ const LocationResident = ({ id, image, name, status }: Resident) => {
   return (
     <Link
       key={`resident-${id}`}
-      as={`/resident/${id}/${nameSlug}`}
+      as={`/resident/${id}`}
       href={{
-        pathname: '/resident/[id]/[name]',
+        pathname: '/resident/[id]',
         query: {
           id,
-          name: nameSlug,
         },
       }}
     >
       <a>
         <MediaObject
+          alt={name}
           body={
             <p className="text-xs">
               {name}

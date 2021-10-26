@@ -118,7 +118,7 @@ const ResidentPage = () => {
           {comments.length > 0 && <ResidentComments comments={comments} />}
 
           <p className="mb-4">
-            <strong>What're your thoughts on {resident.name}?</strong>
+            <strong>{`What're your thoughts on ${resident.name}?`}</strong>
           </p>
 
           <ResidentCommentForm

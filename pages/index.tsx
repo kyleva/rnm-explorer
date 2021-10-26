@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 // Components
-import Loader from './components/Loader';
-import Location from './components/Location';
-import Pagination from './components/Pagination';
+import Loader from '../components/Loader';
+import Location from '../components/Location';
+import Pagination from '../components/Pagination';
 // Helpers
-import { getLocations } from './api/location/location';
+import { getLocations } from '../api/location/location';
 // Types
-import { Location as LocationType } from './api/location/types';
+import { Location as LocationType } from '../api/location/types';
 
 const Home = () => {
   const [data, setData]: [LocationType[], Function] = useState([]);
@@ -35,7 +35,7 @@ const Home = () => {
     data.length > 0 && (
       <div className="container px-4 mx-auto my-4">
         {data.map((location) => (
-          <Location {...location} />
+          <Location key={`location-${location.id}`} {...location} />
         ))}
 
         <Pagination

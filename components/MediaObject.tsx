@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import Image from 'next/image';
 
 export type MediaObjectProps = {
+  alt?: string;
   body?: ReactNode;
   className?: string;
   image: string;
@@ -11,6 +12,7 @@ export type MediaObjectProps = {
 };
 
 const MediaObject = ({
+  alt = '',
   body,
   className: parentClassName,
   image,
@@ -19,7 +21,7 @@ const MediaObject = ({
   ...props
 }: MediaObjectProps) => (
   <div className={classnames('flex items-center', parentClassName)} {...props}>
-    <Image height="24" src={image} width="24" />
+    <Image alt={alt} height="24" src={image} width="24" />
     <div className="ml-2">
       {title && <p className="text-lg">{title}</p>}
       {body}

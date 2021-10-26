@@ -14,7 +14,13 @@ const ResidentDetails = ({
 }: Resident) => (
   <>
     <div className="md:float-right">
-      <Image src={image} className="max-w-full" height="200" width="200" />
+      <Image
+        alt={name}
+        src={image}
+        className="max-w-full"
+        height="200"
+        width="200"
+      />
     </div>
 
     <h1 className="mb-6 text-lg">{name}</h1>
