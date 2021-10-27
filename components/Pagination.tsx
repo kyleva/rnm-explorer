@@ -1,3 +1,5 @@
+import classnames from 'classnames';
+
 type PaginationProps = {
   currentPage: number;
   pageCount: number;
@@ -11,31 +13,23 @@ const Pagination = ({ currentPage, pageCount, setPage }: PaginationProps) => (
        * Get human readable page number (starts at 1)
        */
       const humanPageNumber = i + 1;
-      /**
-       * Honestly I don't like the ternary below for readability reasons
-       * but it isn't that necessary to refactor!
-       */
-      const pageItem =
-        currentPage === humanPageNumber ? (
-          <button
-            key={`pagination-${humanPageNumber}`}
-            className="px-3 py-1 mx-2 bg-gray-300 border rounded"
-          >
-            {humanPageNumber}
-          </button>
-        ) : (
-          <button
-            key={`pagination-${humanPageNumber}`}
-            className="px-3 py-1 mx-2 border rounded"
-            onClick={() => {
-              setPage(humanPageNumber);
-            }}
-          >
-            {humanPageNumber}
-          </button>
-        );
+      const isCurrentPage = currentPage === humanPageNumber;
 
-      return pageItem;
+      return (
+        <button
+          key={`pagination-${humanPageNumber}`}
+          className={classnames('px-3 py-1 mx-2 border rounded', {
+            'bg-gray-300': isCurrentPage,
+          })}
+          onClick={() => {
+            if (isCurrentPage) return;
+
+            setPage(humanPageNumber);
+          }}
+        >
+          {humanPageNumber}
+        </button>
+      );
     })}
   </div>
 );

@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import Location from '../components/Location';
 import Pagination from '../components/Pagination';
+import Typeahead from '../components/Typeahead';
 // Helpers
 import { getLocations } from '../api/location/location';
 // Types
 import { Location as LocationType } from '../api/location/types';
-import Typeahead from '../components/Typeahead';
 
 const Home = () => {
   const [data, setData]: [LocationType[], Function] = useState([]);
