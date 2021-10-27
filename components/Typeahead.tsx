@@ -1,9 +1,12 @@
+// React + Next
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+// Material UI
+import { Autocomplete, TextField } from '@mui/material';
 
+// Constants
 import { DATA_GROUPS } from '../api/constants';
+// Helpers
 import { getLocationsAndResidentsByName } from '../api/shared/shared';
 
 const Typeahead = () => {
