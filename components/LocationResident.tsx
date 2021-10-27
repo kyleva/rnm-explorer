@@ -2,20 +2,16 @@ import Link from 'next/link';
 
 // Components
 import MediaObject from './MediaObject';
-// Helpers
-import { slugify } from '../api/utilities';
 // Types
 import { Resident } from '../api/resident/types';
 
 const LocationResident = ({ id, image, name, status }: Resident) => {
-  const nameSlug = slugify(name);
-
   return (
     <Link
       key={`resident-${id}`}
       as={`/resident/${id}`}
       href={{
-        pathname: '/resident/[id]',
+        pathname: '/resident/[residentId]',
         query: {
           id,
         },
@@ -25,15 +21,17 @@ const LocationResident = ({ id, image, name, status }: Resident) => {
         <MediaObject
           alt={name}
           body={
-            <p className="text-xs">
+            <p className="text-sm sm:text-sm">
               {name}
               <br />
               <span className="capitalize">{status}</span>
             </p>
           }
           className="cursor-pointer"
+          height="60"
           image={image}
-          imageClassName="w-6 mr-2"
+          imageClassName="mr-2"
+          width="60"
         />
       </a>
     </Link>

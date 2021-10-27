@@ -1,27 +1,9 @@
 // Constants
 import { EXPLORER_API } from '../constants';
+// Queries
+import { getResidentByIdQuery } from './queries';
 // Types
 import { ResidentResponse } from './types';
-
-const getResidentByIdQuery = `
-  query GetCharacterById($residentId: ID!) {
-    character(id: $residentId) {
-      id
-      gender
-      image
-      name
-      location {
-        name
-      }
-      origin {
-        name
-      }
-      species
-      status
-      type
-    }
-  }
-`;
 
 export const getResidentById = (id: string): Promise<ResidentResponse> =>
   fetch(EXPLORER_API, {

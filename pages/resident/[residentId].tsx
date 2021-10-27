@@ -27,7 +27,7 @@ const ResidentPage = () => {
   const [newCommentBody, setNewCommentBody] = useState('');
   const [newCommentTitle, setNewCommentTitle] = useState('');
 
-  const id = router.query.id as string;
+  const id = router.query.residentId as string;
 
   useEffect(() => {
     // Don't execute side effect on first render (url prop not available)

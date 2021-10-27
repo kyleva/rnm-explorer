@@ -8,6 +8,7 @@ import Pagination from '../components/Pagination';
 import { getLocations } from '../api/location/location';
 // Types
 import { Location as LocationType } from '../api/location/types';
+import Typeahead from '../components/Typeahead';
 
 const Home = () => {
   const [data, setData]: [LocationType[], Function] = useState([]);
@@ -27,27 +28,32 @@ const Home = () => {
 
   useEffect(() => {
     document.title = 'Rick and Morty Explorer';
-  });
+  }, []);
 
   if (isLoading) return <Loader />;
 
   return (
-    data.length > 0 && (
-      <div className="container px-4 mx-auto my-4">
-        {data.map((location) => (
-          <Location key={`location-${location.id}`} {...location} />
-        ))}
-
-        <Pagination
-          currentPage={page}
-          pageCount={pageCount}
-          setPage={(newPage) => {
-            setIsLoading(true);
-            setPage(newPage);
-          }}
-        />
+    <>
+      <div>
+        <Typeahead />
       </div>
-    )
+      {data.length > 0 && (
+        <div className="container px-4 mx-auto my-4">
+          {data.map((location) => (
+            <Location key={`location-${location.id}`} {...location} />
+          ))}
+
+          <Pagination
+            currentPage={page}
+            pageCount={pageCount}
+            setPage={(newPage) => {
+              setIsLoading(true);
+              setPage(newPage);
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

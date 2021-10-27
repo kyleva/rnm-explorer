@@ -17,20 +17,22 @@ const Pagination = ({ currentPage, pageCount, setPage }: PaginationProps) => (
        */
       const pageItem =
         currentPage === humanPageNumber ? (
-          <button className="px-3 py-1 mx-2 bg-gray-300 border rounded">
+          <button
+            key={`pagination-${humanPageNumber}`}
+            className="px-3 py-1 mx-2 bg-gray-300 border rounded"
+          >
             {humanPageNumber}
           </button>
         ) : (
-          <span>
-            <button
-              className="px-3 py-1 mx-2 border rounded"
-              onClick={() => {
-                setPage(humanPageNumber);
-              }}
-            >
-              {humanPageNumber}
-            </button>
-          </span>
+          <button
+            key={`pagination-${humanPageNumber}`}
+            className="px-3 py-1 mx-2 border rounded"
+            onClick={() => {
+              setPage(humanPageNumber);
+            }}
+          >
+            {humanPageNumber}
+          </button>
         );
 
       return pageItem;
