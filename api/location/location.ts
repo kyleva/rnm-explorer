@@ -3,7 +3,7 @@ import { EXPLORER_API } from '../constants';
 // Queries
 import { getAllLocationsQuery, getLocationByIdQuery } from './queries';
 // Types
-import { LocationsResponse } from './types';
+import { LocationResponse, LocationsResponse } from './types';
 
 export const getLocations = (page: number = 1): Promise<LocationsResponse> =>
   fetch(EXPLORER_API, {
